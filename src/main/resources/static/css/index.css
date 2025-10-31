@@ -1,0 +1,10 @@
+main{
+	min-height: 100vh;
+}
+
+.container-text{
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
