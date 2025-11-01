@@ -4,8 +4,8 @@
 <head>
 	<meta charset="UTF-8">
 	<html xlmns:th="http://www.thymeleaf.org">
-	<link rel="icon" th:href="@{images/logopesas.png}" type="image/png">	
-	<title>GYM POWER</title>
+	<link rel="icon" th:href="@{images/logopesas.png}" type="image/png">
+	<title>LOGIN</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 	<link rel="stylesheet" th:href="@{css/index.css}">
@@ -18,7 +18,7 @@
 			<div class="container-fluid">
 			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 				<div class="navbar-nav">
-					<a class="nav-link active" aria-current="page" href="#">Home</a>
+					<a class="nav-link active" aria-current="page" href="/">Home</a>
 					<a class="nav-link" href="/login?nombre=Ricardo">Login</a>
 					<a class="nav-link" href="#">Contacto</a>
 				</div>
@@ -30,10 +30,8 @@
 			<div class="container">
 				<div class="row">
 					<div class="col container-text">
-						<!--Esta es la vista principal sin usar ningun endpoint, por default crea un link que conecta con el html de hola
-									y deja el nombre ricardo para que lo tome en la variable nombre del request param y sino por defecto deja el hola 
-								mundo que definimos en el controller-->
-						<h1 class="text-white">Hola</h1>
+						<!--Toma lo que le llega por params en nombre y las barras | se ponene para que no falle y tome esto como texto-->
+						<h1 class="text-white" th:text="|Hola ${nombre}|"></h1>
 					</div>
 				</div>
 			</div>

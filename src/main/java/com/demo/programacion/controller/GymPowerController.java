@@ -11,11 +11,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class GymPowerController {
 	
 	
-		@GetMapping("/hola")
+		@GetMapping("/")
+		public String home() {
+			return "index";
+		}
+		
+		
+		@GetMapping("/login")
 		public String holaMundo(@RequestParam (name="nombre", required = false, defaultValue = "Mundo") 
 		String nombre, Model model) {
 			model.addAttribute("nombre", nombre);//esto es para tomar el parametro que recibimos de la vista y enviarlo al archivo html en este caso el de hola			
-			return "hola";//aca se retorna el mismo nombre del html
+			return "login";//aca se retorna el mismo nombre del html
 		}
 
 }
