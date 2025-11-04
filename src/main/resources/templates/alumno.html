@@ -31,6 +31,14 @@
 						<div class="row">
 							<div class="col container-text">
 								<form method="post"  th:object="${clase}">
+									<div class="col d-flex align-items-end">
+									    <select  name="medicoListado" type="text" class="form-select"> 
+														<% for (Medico mec : listaMedicos) {%>
+															<option value="<%=mec.getDni()%>"><%=mec.getNombre() + " " + mec.getApellido()%></option>			
+														<%} %>
+													</select>
+										
+									  </div>
 								  <div class="mb-3">
 								    <label for="exampleInputEmail" class="form-label">Email</label>
 								    <input type="email" name="email"  class="form-control" id="exampleInputEmail" aria-describedby="emaillHelp">
