@@ -9,6 +9,7 @@ import com.demo.programacion.model.Usuario;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.HashMap;
 
 @Service
 public class GymPowerService {
@@ -44,6 +45,33 @@ public class GymPowerService {
         
         workbook.close();
         return null;
+	}
+	
+	
+	
+	public HashMap<String, Integer> obtenerDiasYHorario(String clase) throws IOException{
+		FileInputStream inputStream = new FileInputStream(new File("src/main/resources/clases.xlsx"));
+        Workbook workbook = new XSSFWorkbook(inputStream);
+        int disciplina = Integer.parseInt(clase);
+        Sheet sheet = workbook.getSheetAt(disciplina); 
+        System.out.println("esto tiene int: " + disciplina);
+        HashMap<String, Integer> lista = new HashMap<>();
+        for (Row row : sheet) 
+        {
+            Cell diaCell = row.getCell(0);
+            Cell horarioCell = row.getCell(1);
+            System.out.println("dia cell: " + diaCell);
+            System.out.println("horario cell: " + horarioCell);
+            if (diaCell != null && horarioCell != null) 
+            {
+                String fileDia = diaCell.getStringCellValue();
+                int fileHorario = (int) horarioCell.getNumericCellValue();
+                
+                lista.put(fileDia, fileHorario);
+            }
+         }
+        workbook.close();
+        return lista;  
 	}
 	
 	

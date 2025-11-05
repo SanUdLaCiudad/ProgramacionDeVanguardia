@@ -1,6 +1,7 @@
 package com.demo.programacion.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import org.apache.poi.EncryptedDocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,8 +71,14 @@ public class GymPowerController {
 		}
 		
 		@PostMapping("/alumno")
-		public String seleccionarClase(@ModelAttribute ("clase") Clase clase) throws EncryptedDocumentException, IOException {			
+		public String seleccionarClase(@ModelAttribute ("clase") Clase clase, Model model) throws EncryptedDocumentException, IOException {			
 			System.out.println("Clase seleccionada" + clase.getDisciplina());
+			if(clase.getDisciplina() != null) {
+				HashMap<String, Integer> lista = gymPowerService.obtenerDiasYHorario(clase.getDisciplina());
+				model.addAttribute("lista", lista);
+				System.out.println("lista: " +lista.size());
+			}
+			
 			return "alumno";//aca se retorna el mismo nombre del html
 		}
 		
