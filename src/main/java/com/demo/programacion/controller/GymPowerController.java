@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.demo.programacion.service.*;
+import com.demo.programacion.model.Clase;
 import com.demo.programacion.model.Usuario;
 
 @Controller
@@ -61,9 +62,22 @@ public class GymPowerController {
 			return "entrenador";
 		}
 		
+		
+		
 		@GetMapping("/alumno")
 		public String alumno() {
 			return "alumno";
+		}
+		
+		@PostMapping("/alumno")
+		public String seleccionarClase(@ModelAttribute ("clase") Clase clase) throws EncryptedDocumentException, IOException {			
+			System.out.println("Clase seleccionada" + clase.getDisciplina());
+			return "alumno";//aca se retorna el mismo nombre del html
+		}
+		
+		@GetMapping("/contacto")
+		public String contacto() {
+			return "contacto";
 		}
 
 }
