@@ -50,9 +50,9 @@
 										<button type="submit" class="btn btn-primary">Enviar</button>
 									
 										
-										
+										<br> <!-- Agrega un espacio-->
 										<div class="col d-flex align-items-end">
-										<select th:if="${lista != null}" name="lista" type="text" class="form-select">
+										<select th:if="${lista != null}" name="lista" type="text" class="form-select" th:object="${lista}">
 										  <option value="">-- Selecciona dia y horario--</option>
 										  <option th:each="entry : ${lista}"
 										          th:value="${entry.key}"

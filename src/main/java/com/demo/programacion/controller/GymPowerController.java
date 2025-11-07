@@ -74,7 +74,7 @@ public class GymPowerController {
 		public String seleccionarClase(@ModelAttribute ("clase") Clase clase, Model model) throws EncryptedDocumentException, IOException {			
 			System.out.println("Clase seleccionada" + clase.getDisciplina());
 			if(clase.getDisciplina() != null) {
-				HashMap<String, Integer> lista = gymPowerService.obtenerDiasYHorario(clase.getDisciplina());
+				HashMap<String, String> lista = gymPowerService.obtenerDiasYHorario(clase.getDisciplina());
 				model.addAttribute("lista", lista);
 				System.out.println("lista: " +lista.size());
 			}
