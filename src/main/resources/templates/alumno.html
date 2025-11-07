@@ -52,14 +52,15 @@
 										
 										<br> <!-- Agrega un espacio-->
 										<div class="col d-flex align-items-end">
-										<select th:if="${lista != null}" name="lista" type="text" class="form-select" th:object="${lista}">
-										  <option value="">-- Selecciona dia y horario--</option>
-										  <option th:each="entry : ${lista}"
-										          th:value="${entry.key}"
-										          th:text="${entry.value}">
-										    <!-- El texto de la opción se renderizará aquí -->
-										  </option>
-										</select>
+											<select th:if="${lista != null}" name="lista" type="text" class="form-select" th:object="${lista}">
+												<option value="" disabled>-- Selecciona dia y horario--</option>
+												<option th:each="entry : ${lista}" th:value="${entry.key}" th:text="${entry.value}">
+													<!-- El texto de la opción se renderizará aquí -->
+												</option>
+												<option th:each="entry : ${lista}" th:value="${entry.key}" th:text="${entry.value}">
+													<!-- El texto de la opción se renderizará aquí -->
+												</option>
+											</select>
 										</div>
 										
 								</form>
