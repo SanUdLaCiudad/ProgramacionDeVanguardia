@@ -94,6 +94,7 @@ public class GymPowerController {
 				claseReservada.setDia(listaReservada.get(diaSeleccionado).getDia());
 				HashMap<String, String> listaClases = gymPowerService.obtenerClases();
 				String claseAnotada = gymPowerService.buscarClase(listaClases, claseReservada.getDisciplina());
+				gymPowerService.guardarCupo(claseReservada.getDisciplina(), diaSeleccionado);
 				model.addAttribute("mensaje", "Te registrate correctamente a la clase de " + claseAnotada + " el " + claseReservada.getDia() + " horas. ");
 			}
 			

@@ -10,6 +10,7 @@ import com.demo.programacion.model.Clase;
 import com.demo.programacion.model.Usuario;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -115,4 +116,28 @@ public class GymPowerService {
 		return null;
 	
 	}
+	
+	
+	public void guardarCupo(String disciplina, int diaSeleccionado) throws IOException{
+		FileInputStream inputStream = new FileInputStream(new File("src/main/resources/clases.xlsx"));
+		
+        Workbook workbook = new XSSFWorkbook(inputStream);
+        int hojaDisciplina = Integer.parseInt(disciplina);
+        Sheet sheet = workbook.getSheetAt(hojaDisciplina); 
+      
+		System.out.println("Esto tiene disciplina " + disciplina + " Esto tiene dia seleccionado " + diaSeleccionado);
+      
+        Row row = sheet.getRow(diaSeleccionado);       
+        Cell reservasCell = row.getCell(2);
+        int fileReserva = (int)reservasCell.getNumericCellValue();   
+        reservasCell.setCellValue(fileReserva - 1); 
+        
+        inputStream.close();
+        
+        FileOutputStream outputStream = new FileOutputStream(new File("src/main/resources/clases.xlsx"));
+        workbook.write(outputStream);
+        workbook.close();
+        outputStream.close();
+	}
+	
 }
