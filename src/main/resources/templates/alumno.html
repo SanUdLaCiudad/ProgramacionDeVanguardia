@@ -37,23 +37,25 @@
 
 
 							<div class="col d-flex align-items-end">
-								<select th:if="${lista == null}" name="disciplina" type="text" class="form-select">
+								<select th:if="${lista == null && mensaje == null}" name="disciplina" type="text"
+									class="form-select">
 
-									<option value="1" >Aerobox</option>
-									<option value="2" >Aerolocal</option>
-									<option value="3" >Funcional</option>
-									<option value="4" >Localizada</option>
-									<option value="5" >Musculacion</option>
-									<option value="6" >Pesas</option>
-									<option value="7" >Spinning</option>
-									<option value="8" >Zumba</option>
+									<option value="1">Aerobox</option>
+									<option value="2">Aerolocal</option>
+									<option value="3">Funcional</option>
+									<option value="4">Localizada</option>
+									<option value="5">Musculacion</option>
+									<option value="6">Pesas</option>
+									<option value="7">Spinning</option>
+									<option value="8">Zumba</option>
 								</select>
 
 							</div>
-							
-							
+
+
 							<div class="col d-flex align-items-end">
-								<select th:if="${lista != null}" name="disciplina" type="text" class="form-select">
+								<select th:if="${lista != null && mensaje == null}" name="disciplina" type="text"
+									class="form-select">
 
 									<option value="1" th:disabled="${numero != 1}">Aerobox</option>
 									<option value="2" th:disabled="${numero != 2}">Aerolocal</option>
@@ -68,21 +70,26 @@
 							</div>
 
 							<br> <!-- Agrega un espacio-->
-							<button th:style="${ocultarBoton}" type="submit" class="btn btn-primary">Enviar</button>
+							<button th:if="${mensaje == null}" th:style="${ocultarBoton}" type="submit"
+								class="btn btn-primary">Enviar</button>
 
 
 							<div class="col d-flex align-items-end">
-								<select th:if="${lista != null}" name="dia" type="text" class="form-select"
-									th:object="${lista}">
+								<select th:if="${lista != null && mensaje == null}" name="dia" type="text"
+									class="form-select" th:object="${lista}">
 									<option value="" disabled>-- Selecciona dia y horario--</option>
-									<option th:each="entry : ${lista}" th:value="${entry.key}" th:text="${entry.value.getDia()}">
+									<option th:each="entry : ${lista}" th:value="${entry.key}"
+										th:text="${entry.value.getDia()}">
 										<!-- El texto de la opción se renderizará aquí -->
 									</option>
 								</select>
 							</div>
 
 							<br> <!-- Agrega un espacio-->
-							<button th:if="${lista != null}" type="submit" class="btn btn-primary">Enviar</button>
+							<button th:if="${lista != null && mensaje == null}" type="submit"
+								class="btn btn-primary">Enviar</button>
+
+								<h1 class="col container-text bg-dark text-white" th:if="${mensaje != null}" th:text="${mensaje}"></h1>
 
 						</form>
 					</div>

@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class GymPowerService {
@@ -87,7 +88,31 @@ public class GymPowerService {
         return lista;  
 	}
 	
+	public HashMap<String, String> obtenerClases() {
+		HashMap<String, String> listaClases = new HashMap<>();
+		listaClases.put("1", "Aerobox");
+		listaClases.put("2", "Aerolocal");
+		listaClases.put("3", "Funcional");
+		listaClases.put("4", "Localizada");
+		listaClases.put("5", "Musculacion");
+		listaClases.put("6", "Pesas");
+		listaClases.put("7", "Spinning");
+		listaClases.put("8", "Zumba");
+		return listaClases;
+	}
 	
 	
+	public String buscarClase(HashMap<String, String> listaClases, String id) {
+		for (Map.Entry<String, String> entry : listaClases.entrySet()) 
+		{
+			String key = entry.getKey();
+			String val = entry.getValue();
+			if(key.equals(id))
+			{
+				return val;
+			}
+		}
+		return null;
 	
+	}
 }

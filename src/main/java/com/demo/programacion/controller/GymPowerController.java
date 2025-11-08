@@ -70,6 +70,9 @@ public class GymPowerController {
 			return "alumno";
 		}
 		
+		Clase claseReservada = new Clase();
+		HashMap<Integer, Clase> listaReservada = new HashMap<>();
+		
 		@PostMapping("/alumno")
 		public String seleccionarClase(@ModelAttribute ("clase") Clase clase, Model model) throws EncryptedDocumentException, IOException {			
 			System.out.println("Clase seleccionada" + clase.getDisciplina());
@@ -80,12 +83,18 @@ public class GymPowerController {
 				model.addAttribute("ocultarBoton", "display: none;");//para ocultar el boton de enviar
 				model.addAttribute("lista", lista);
 				System.out.println("lista: " +lista.size());
+				claseReservada.setDisciplina(clase.getDisciplina());
+				listaReservada.putAll(lista);
 			}
 			
 			System.out.println("Dia seleccionado" + clase.getDia());
 			if(clase.getDia()!= null) 
 			{
-				
+				int diaSeleccionado = Integer.parseInt(clase.getDia());
+				claseReservada.setDia(listaReservada.get(diaSeleccionado).getDia());
+				HashMap<String, String> listaClases = gymPowerService.obtenerClases();
+				String claseAnotada = gymPowerService.buscarClase(listaClases, claseReservada.getDisciplina());
+				model.addAttribute("mensaje", "Te registrate correctamente a la clase de " + claseAnotada + " el " + claseReservada.getDia() + " horas. ");
 			}
 			
 			return "alumno";//aca se retorna el mismo nombre del html
