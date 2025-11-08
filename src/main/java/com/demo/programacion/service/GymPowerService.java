@@ -9,6 +9,8 @@ import com.demo.programacion.model.Usuario;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 @Service
@@ -56,20 +58,19 @@ public class GymPowerService {
         Sheet sheet = workbook.getSheetAt(disciplina); 
         System.out.println("esto tiene int: " + disciplina);
         HashMap<Integer, String> lista = new HashMap<>();
+        int id = 0;
         for (Row row : sheet) 
         {
-        	int id = 0;
             Cell diaCell = row.getCell(0);
             Cell horarioCell = row.getCell(1);
-            System.out.println("dia cell: " + diaCell);
-            System.out.println("horario cell: " + horarioCell);
+           
             if (diaCell != null && horarioCell != null) 
             {
                 String fileDia = diaCell.getStringCellValue();
-                String fileHorario = horarioCell.getStringCellValue();
-                System.out.println("dia file: " + fileDia);
-                System.out.println("horario file: " + fileHorario);
-                lista.put(id, fileDia + " " + fileHorario);
+                Date fileHorario = horarioCell.getDateCellValue();
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+                String horaString = sdf.format(fileHorario);
+                lista.put(id, fileDia + " " + horaString);
             }
             id++;
          }

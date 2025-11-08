@@ -4,10 +4,13 @@
 <head>
 	<meta charset="UTF-8">
 	<html xlmns:th="http://www.thymeleaf.org">
-	<link rel="icon" th:href="@{images/logopesas.png}" type="image/png">
+	<link rel="icon" th:href="@{images/logomoveon.png}" type="image/png">
 	<title>HOME ALUMNO</title>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+		crossorigin="anonymous"></script>
 	<link rel="stylesheet" th:href="@{css/index.css}">
 </head>
 
@@ -16,60 +19,79 @@
 	<main>
 		<nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
 			<div class="container-fluid">
-			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-				<div class="navbar-nav">
-					<a class="nav-link active" aria-current="page" href="/">Home</a>
-					<a class="nav-link" href="/login">Login</a>
-					<a class="nav-link" href="/contacto">Contacto</a>
+				<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+					<div class="navbar-nav">
+						<a class="nav-link active" aria-current="page" href="/">Home</a>
+						<a class="nav-link" href="/login">Login</a>
+						<a class="nav-link" href="/contacto">Contacto</a>
+					</div>
 				</div>
-			</div>
 			</div>
 		</nav>
 
 		<div class="container-fluid bg-dark" data-bs-theme="dark">
-					<div class="container">
-						<div class="row">
-							<div class="col container-text">
-								<form method="post"  th:object="${clase}" action="/alumno">
-									<div class="col d-flex align-items-end">
-									    <select  name="disciplina" type="text" class="form-select"> 
-														
-															<option value="1">Aerobox</option>
-															<option value="2">Aerolocal</option>
-															<option value="3">Funcional</option>
-															<option value="4">Localizada</option>
-															<option value="5">Musculacion</option>			
-															<option value="6">Pesas</option>
-															<option value="7">Spinning</option>
-															<option value="8">Zumba</option>
-													</select>
-										
-									  </div>
-									
-									  <br> <!-- Agrega un espacio-->
-										<button type="submit" class="btn btn-primary">Enviar</button>
-									
-										
-										<br> <!-- Agrega un espacio-->
-										<div class="col d-flex align-items-end">
-											<select th:if="${lista != null}" name="lista" type="text" class="form-select" th:object="${lista}">
-												<option value="" disabled>-- Selecciona dia y horario--</option>
-												<option th:each="entry : ${lista}" th:value="${entry.key}" th:text="${entry.value}">
-													<!-- El texto de la opción se renderizará aquí -->
-												</option>
-												<option th:each="entry : ${lista}" th:value="${entry.key}" th:text="${entry.value}">
-													<!-- El texto de la opción se renderizará aquí -->
-												</option>
-											</select>
-										</div>
-										
-								</form>
+			<div class="container">
+				<div class="row">
+					<div class="col container-text">
+						<form method="post" th:object="${clase}" action="/alumno">
+
+
+							<div class="col d-flex align-items-end">
+								<select th:if="${lista == null}" name="disciplina" type="text" class="form-select">
+
+									<option value="1" >Aerobox</option>
+									<option value="2" >Aerolocal</option>
+									<option value="3" >Funcional</option>
+									<option value="4" >Localizada</option>
+									<option value="5" >Musculacion</option>
+									<option value="6" >Pesas</option>
+									<option value="7" >Spinning</option>
+									<option value="8" >Zumba</option>
+								</select>
+
 							</div>
-						</div>
+							
+							
+							<div class="col d-flex align-items-end">
+								<select th:if="${lista != null}" name="disciplina" type="text" class="form-select">
+
+									<option value="1" th:disabled="${numero != 1}">Aerobox</option>
+									<option value="2" th:disabled="${numero != 2}">Aerolocal</option>
+									<option value="3" th:disabled="${numero != 3}">Funcional</option>
+									<option value="4" th:disabled="${numero != 4}">Localizada</option>
+									<option value="5" th:disabled="${numero != 5}">Musculacion</option>
+									<option value="6" th:disabled="${numero != 6}">Pesas</option>
+									<option value="7" th:disabled="${numero != 7}">Spinning</option>
+									<option value="8" th:disabled="${numero != 8}">Zumba</option>
+								</select>
+
+							</div>
+
+							<br> <!-- Agrega un espacio-->
+							<button th:style="${ocultarBoton}" type="submit" class="btn btn-primary">Enviar</button>
+
+
+							<div class="col d-flex align-items-end">
+								<select th:if="${lista != null}" name="dia" type="text" class="form-select"
+									th:object="${lista}">
+									<option value="" disabled>-- Selecciona dia y horario--</option>
+									<option th:each="entry : ${lista}" th:value="${entry.key}" th:text="${entry.value}">
+										<!-- El texto de la opción se renderizará aquí -->
+									</option>
+								</select>
+							</div>
+
+							<br> <!-- Agrega un espacio-->
+							<button th:if="${lista != null}" type="submit" class="btn btn-primary">Enviar</button>
+
+						</form>
 					</div>
 				</div>
-		
+			</div>
+		</div>
+
 	</main>
 
 </body>
+
 </html>
