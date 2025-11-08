@@ -75,7 +75,7 @@
 								<select th:if="${lista != null}" name="dia" type="text" class="form-select"
 									th:object="${lista}">
 									<option value="" disabled>-- Selecciona dia y horario--</option>
-									<option th:each="entry : ${lista}" th:value="${entry.key}" th:text="${entry.value}">
+									<option th:each="entry : ${lista}" th:value="${entry.key}" th:text="${entry.value.getDia()}">
 										<!-- El texto de la opción se renderizará aquí -->
 									</option>
 								</select>

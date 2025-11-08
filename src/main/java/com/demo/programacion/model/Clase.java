@@ -7,9 +7,22 @@ public class Clase {
 	
 	private String disciplina;
 	private String dia;
-	private String horario;
-	private String entrenador;
 	private int reservas;
+	private String entrenador;
+	
+	
+	public Clase() {
+		
+	}
+	
+	public Clase(String disciplina, String dia, int reservas, String entrenador) {
+		this.disciplina = disciplina;
+		this.dia = dia;
+		this.reservas = reservas;
+		this.entrenador = entrenador;
+	}
+	
+	
 	public String getDisciplina() {
 		return disciplina;
 	}
@@ -22,12 +35,7 @@ public class Clase {
 	public void setDia(String dia) {
 		this.dia = dia;
 	}
-	public String getHorario() {
-		return horario;
-	}
-	public void setHorario(String horario) {
-		this.horario = horario;
-	}
+
 	public String getEntrenador() {
 		return entrenador;
 	}

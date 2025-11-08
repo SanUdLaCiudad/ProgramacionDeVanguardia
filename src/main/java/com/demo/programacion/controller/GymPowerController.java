@@ -75,7 +75,7 @@ public class GymPowerController {
 			System.out.println("Clase seleccionada" + clase.getDisciplina());
 			if(clase.getDisciplina() != null) 
 			{
-				HashMap<Integer, String> lista = gymPowerService.obtenerDiasYHorario(clase.getDisciplina());
+				HashMap<Integer, Clase> lista = gymPowerService.obtenerDiasYHorario(clase.getDisciplina());
 				model.addAttribute("numero", clase.getDisciplina());
 				model.addAttribute("ocultarBoton", "display: none;");//para ocultar el boton de enviar
 				model.addAttribute("lista", lista);

@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import com.demo.programacion.model.Clase;
 import com.demo.programacion.model.Usuario;
 import java.io.File;
 import java.io.FileInputStream;
@@ -51,26 +53,33 @@ public class GymPowerService {
 	
 	
 	
-	public HashMap<Integer, String> obtenerDiasYHorario(String clase) throws IOException{
+	public HashMap<Integer, Clase> obtenerDiasYHorario(String disciplina) throws IOException{
 		FileInputStream inputStream = new FileInputStream(new File("src/main/resources/clases.xlsx"));
         Workbook workbook = new XSSFWorkbook(inputStream);
-        int disciplina = Integer.parseInt(clase);
-        Sheet sheet = workbook.getSheetAt(disciplina); 
-        System.out.println("esto tiene int: " + disciplina);
-        HashMap<Integer, String> lista = new HashMap<>();
+        int hojaDisciplina = Integer.parseInt(disciplina);
+        Sheet sheet = workbook.getSheetAt(hojaDisciplina); 
+        
+        HashMap<Integer, Clase> lista = new HashMap<>();
         int id = 0;
         for (Row row : sheet) 
         {
             Cell diaCell = row.getCell(0);
             Cell horarioCell = row.getCell(1);
+            Cell reservasCell = row.getCell(2);
+            Cell entrenadorCell = row.getCell(3);
            
-            if (diaCell != null && horarioCell != null) 
+            if (diaCell != null && horarioCell != null && reservasCell != null && entrenadorCell != null) 
             {
                 String fileDia = diaCell.getStringCellValue();
                 Date fileHorario = horarioCell.getDateCellValue();
                 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
                 String horaString = sdf.format(fileHorario);
-                lista.put(id, fileDia + " " + horaString);
+                String dia = fileDia + " " + horaString;
+                int fileReserva = (int)reservasCell.getNumericCellValue();
+                String fileEntrenador = entrenadorCell.getStringCellValue();
+                Clase clase = new Clase(disciplina, dia, fileReserva, fileEntrenador);
+                System.out.println("Esto tiene clase: " + disciplina + dia + fileReserva + fileEntrenador);
+                lista.put(id, clase);
             }
             id++;
          }
