@@ -30,7 +30,28 @@
 			<div class="container">
 				<div class="row">
 					<div class="col container-text">
-					<h1>Hola</h1>
+						
+							
+						<h1 th:text="|Hola ${nombre} estas son tus clases reservadas: |"></h1>
+					
+						<h1> Para aerobox: </h1>
+					
+					<table>
+						<thead>
+							<tr>
+								<th>Dia y Horario</th>
+								<th>Cantidad de Alumnos</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- Bucle para iterar sobre la lista de objetos -->
+							<tr th:each="objeto : ${listaAerobox}">
+								<td th:text="${objeto.value.getDia()}"></td>
+								<td th:text="${objeto.value.getReservas()}"></td>
+							</tr>
+						</tbody>
+					</table>
+					
 					</div>
 				</div>
 			</div>

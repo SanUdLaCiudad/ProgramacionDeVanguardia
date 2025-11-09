@@ -8,6 +8,7 @@ public class Usuario {
 	private String email;
 	private int password;
 	private String perfil;
+	private String nombre;
 	
 	
 	public String getEmail() {
@@ -16,7 +17,6 @@ public class Usuario {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
 	
 	public int getPassword() {
 		return password;
@@ -30,6 +30,14 @@ public class Usuario {
 	public void setPerfil(String perfil) {
 		this.perfil = perfil;
 	}
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	
+	
 	
 	
 

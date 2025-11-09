@@ -32,16 +32,19 @@ public class GymPowerService {
             Cell emailCell = row.getCell(0);
             Cell passwordCell = row.getCell(1);
             Cell perfilCell = row.getCell(2);
+            Cell nombreCell = row.getCell(3);
 
             if (emailCell != null && passwordCell != null) 
             {
                 String fileEmail = emailCell.getStringCellValue();
                 int filePassword = (int)passwordCell.getNumericCellValue();
                 String filePerfil = perfilCell.getStringCellValue();
+                String fileNombre = nombreCell.getStringCellValue();
 
                 if (fileEmail.equals(usuario.getEmail()) && filePassword == usuario.getPassword())
                 {
                 	usuario.setPerfil(filePerfil);
+                	usuario.setNombre(fileNombre);
                 	workbook.close();
                 	return usuario;
                 }

@@ -13,12 +13,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttributes;
+
 import com.demo.programacion.service.*;
 import com.demo.programacion.model.Clase;
 import com.demo.programacion.model.Usuario;
 
 @Controller
-//@RestMapping(("/gympower")
+@SessionAttributes("usuario")
 public class GymPowerController {
 	
 	@Autowired
@@ -32,13 +34,16 @@ public class GymPowerController {
 		
 		
 		@GetMapping("/login")
-		public String login() {
+		public String login(Model model) {
 			//model.addAttribute("nombre", nombre);//esto es para tomar el parametro que recibimos de la vista y enviarlo al archivo html en este caso el de hola			
+			model.addAttribute("usuario", new Usuario());//para crear el nuevo usuario
 			return "login";//aca se retorna el mismo nombre del html
 		}
 		
+		
+		
 		@PostMapping("/login")
-		public String login(@ModelAttribute ("usuario") Usuario usuario) throws EncryptedDocumentException, IOException {			
+		public String login(@ModelAttribute ("usuario") Usuario usuario, Model model) throws EncryptedDocumentException, IOException {			
 			System.out.println("Us" + usuario.getEmail());
 			System.out.println("pas" + usuario.getPassword());
 			Usuario user = gymPowerService.obtenerUsuario(usuario);
@@ -47,10 +52,13 @@ public class GymPowerController {
 				if(usuario.getPerfil().equals("Entrenador"))
 				{
 					System.out.println("lo encontre y es entrenador");
-					return "entrenador";
+					System.out.println("En login esto tiene nombre: " + usuario.getNombre());
+					model.addAttribute("usuario", usuario);
+					return "redirect:/entrenador";
 				} else {
 					System.out.println("lo encontre y es alumno");
-					return "alumno";
+					model.addAttribute("usuario", usuario);
+					return "redirect:/alumno";
 				}
 			}
 			System.out.println("no lo encontre");
@@ -58,10 +66,23 @@ public class GymPowerController {
 		}
 		
 		
+		
 		@GetMapping("/entrenador")
-		public String entrenador() {
+		public String entrenador(@ModelAttribute ("usuario") Usuario usuario, Model model) throws IOException {
+			System.out.println("Esto tiene nombre: " + usuario.getNombre());
+			if(usuario.getNombre().equals("SUAREZ JULIETA"))
+			{
+				HashMap<Integer, Clase> listaAerobox = gymPowerService.obtenerDiasYHorario("1");
+				//HashMap<Integer, Clase> listaAerolocal = gymPowerService.obtenerDiasYHorario("2");
+				//HashMap<Integer, Clase> listaMusculacion = gymPowerService.obtenerDiasYHorario("5");
+				//HashMap<Integer, Clase> listaZumba = gymPowerService.obtenerDiasYHorario("8");
+				model.addAttribute("nombre", usuario.getNombre());
+				model.addAttribute("listaAerobox", listaAerobox);
+			}
 			return "entrenador";
 		}
+		
+	
 		
 		
 		
