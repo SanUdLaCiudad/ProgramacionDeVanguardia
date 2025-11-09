@@ -35,11 +35,10 @@
 				<div class="row">
 					<h1 th:text="|Hola ${nombre} estas son tus clases reservadas: |"></h1>
 				</div>
+				
+				
 				<div class="row">
 					<p> Para aerobox: </p>
-				</div>
-
-				<div class="row">
 					<table class="table table-dark">
 						<thead>
 							<tr class="table-active">
@@ -50,8 +49,8 @@
 						<tbody>
 							<!-- Bucle para iterar sobre la lista de objetos -->
 							<tr th:each="objeto : ${listaAerobox}">
-								<td class="table-active" th:text="${objeto.value.getDia()}"></td>
-								<td class="table-active" th:text="${objeto.value.getReservas()}"></td>
+								<td th:text="${objeto.value.getDia()}"></td>
+								<td th:text="${objeto.value.getReservas()}"></td>
 							</tr>
 						</tbody>
 					</table>

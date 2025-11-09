@@ -133,9 +133,10 @@ public class GymPowerService {
         Cell reservasCell = row.getCell(2);
         int fileReserva = (int)reservasCell.getNumericCellValue();  
         
-        if(fileReserva > 0)
+        //se pueden anotar hasta 5 por clase
+        if(fileReserva > -1 && fileReserva < 6)
         {
-        	reservasCell.setCellValue(fileReserva - 1);   
+        	reservasCell.setCellValue(fileReserva + 1);   
         	inputStream.close();
         	FileOutputStream outputStream = new FileOutputStream(new File("src/main/resources/clases.xlsx"));
         	workbook.write(outputStream);
