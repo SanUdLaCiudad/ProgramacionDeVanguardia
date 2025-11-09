@@ -94,8 +94,14 @@ public class GymPowerController {
 				claseReservada.setDia(listaReservada.get(diaSeleccionado).getDia());
 				HashMap<String, String> listaClases = gymPowerService.obtenerClases();
 				String claseAnotada = gymPowerService.buscarClase(listaClases, claseReservada.getDisciplina());
-				gymPowerService.guardarCupo(claseReservada.getDisciplina(), diaSeleccionado);
-				model.addAttribute("mensaje", "Te registrate correctamente a la clase de " + claseAnotada + " el " + claseReservada.getDia() + " horas. ");
+				boolean cupo = gymPowerService.guardarCupo(claseReservada.getDisciplina(), diaSeleccionado);
+				if(cupo) 
+				{
+					model.addAttribute("mensaje", "Te registrate correctamente a la clase de " + claseAnotada + " el " + claseReservada.getDia() + " horas. ");
+				} else {
+					model.addAttribute("mensaje", "Lo sentimos, no hay mas cupo para la clase de " + claseAnotada + " el " + claseReservada.getDia() + " horas. ");
+				}
+				
 			}
 			
 			return "alumno";//aca se retorna el mismo nombre del html

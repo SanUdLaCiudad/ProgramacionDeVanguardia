@@ -118,26 +118,32 @@ public class GymPowerService {
 	}
 	
 	
-	public void guardarCupo(String disciplina, int diaSeleccionado) throws IOException{
+	public boolean guardarCupo(String disciplina, int diaSeleccionado) throws IOException{
 		FileInputStream inputStream = new FileInputStream(new File("src/main/resources/clases.xlsx"));
 		
         Workbook workbook = new XSSFWorkbook(inputStream);
         int hojaDisciplina = Integer.parseInt(disciplina);
         Sheet sheet = workbook.getSheetAt(hojaDisciplina); 
       
-		System.out.println("Esto tiene disciplina " + disciplina + " Esto tiene dia seleccionado " + diaSeleccionado);
       
         Row row = sheet.getRow(diaSeleccionado);       
         Cell reservasCell = row.getCell(2);
-        int fileReserva = (int)reservasCell.getNumericCellValue();   
-        reservasCell.setCellValue(fileReserva - 1); 
+        int fileReserva = (int)reservasCell.getNumericCellValue();  
         
-        inputStream.close();
-        
-        FileOutputStream outputStream = new FileOutputStream(new File("src/main/resources/clases.xlsx"));
-        workbook.write(outputStream);
-        workbook.close();
-        outputStream.close();
+        if(fileReserva > 0)
+        {
+        	reservasCell.setCellValue(fileReserva - 1);   
+        	inputStream.close();
+        	FileOutputStream outputStream = new FileOutputStream(new File("src/main/resources/clases.xlsx"));
+        	workbook.write(outputStream);
+        	workbook.close();
+        	outputStream.close();
+        	return true;
+        } else {
+        	inputStream.close();
+        	workbook.close();
+        	return false;
+        }
 	}
 	
 }
