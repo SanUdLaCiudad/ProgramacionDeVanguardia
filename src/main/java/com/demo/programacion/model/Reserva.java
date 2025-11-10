@@ -2,6 +2,7 @@ package com.demo.programacion.model;
 
 public class Reserva {
 	
+	private int id;
 	private String clase;
 	private String dia;
 	
@@ -25,6 +26,14 @@ public class Reserva {
 	public void setDia(String dia) {
 		this.dia = dia;
 	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	
 	
 	
 

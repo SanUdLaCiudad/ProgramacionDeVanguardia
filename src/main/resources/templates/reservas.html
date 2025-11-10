@@ -34,24 +34,32 @@
 			<div class="container">
 
 				<div class="row">
-					<h1 th:text="|Hola ${nombre} estas son tus clases reservadas: |"></h1>
+					<h1 th:if="${mensaje == null}" th:text="|Hola ${nombre} estas son tus clases reservadas: |"></h1>
 				</div>
 
-
+<br>
+<br>
 				<div class="row" th:if="${alumno == 1}">
 					<table class="table table-dark">
 						<thead>
 							<tr class="table-active">
-								<th>Clase</th>
-								<th>Dia y Horario</th>
-								<th><button type="submit" class="btn btn-primary">Cancelar</button></th>
+								<th id="thColor">Clase</th>
+								<th id="thColor">Dia y Horario</th>
+								<th id="thColor">Cancelar</button></th>
 							</tr>
 						</thead>
 						<tbody>
 							<!-- Bucle para iterar sobre la lista de objetos -->
 							<tr th:each="objeto : ${listaAlumno1}">
-								<td th:text="${objeto.getDia()}"></td>
-								<td th:text="${objeto.getReservas()}"></td>
+								<td th:text="${objeto.clase}"></td>
+								<td th:text="${objeto.dia}"></td>
+								<td>
+									<form th:action="@{/reservas}"th:method="post">
+										<input type="hidden" name="clase" th:value="${objeto.clase}" />
+										<input type="hidden" name="dia" th:value="${objeto.dia}" />
+										<button type="submit">Eliminar</button>
+									</form>
+								</td>
 							</tr>
 						</tbody>
 					</table>
@@ -69,12 +77,14 @@
 						<tbody>
 							<!-- Bucle para iterar sobre la lista de objetos -->
 							<tr th:each="objeto : ${listaAlumno2}">
-								<td th:text="${objeto.value.getDia()}"></td>
-								<td th:text="${objeto.value.getReservas()}"></td>
+								<td th:text="${objeto.clase}"></td>
+								<td th:text="${objeto.dia}"></td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
+				
+				<h1 class="col container-text bg-dark text-white" th:if="${mensaje != null}" th:text="${mensaje}"></h1>
 
 	</main>
 

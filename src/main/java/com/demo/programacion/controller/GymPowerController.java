@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -163,8 +164,8 @@ public class GymPowerController {
 		
 		
 		@GetMapping("/reservas")
-		public String reservasAlumno(@ModelAttribute ("usuario") Usuario usuario, Model model) throws IOException {
-			System.out.println("Esto tiene nombre: " + usuario.getNombre());
+		public String reservas(@ModelAttribute ("usuario") Usuario usuario, Model model) throws IOException {
+			System.out.println("Esto tiene nombre get reservas : " + usuario.getNombre());
 			model.addAttribute("alumnoLogueado", usuario);
 			if(usuario.getNombre().equals("GIMENEZ ZAIRA"))
 			{
@@ -180,8 +181,36 @@ public class GymPowerController {
 				model.addAttribute("alumno", 2);
 				model.addAttribute("listaAlumno2", listaAlumno2);
 			}
+			return "reservas";
+		}
+		
+		@PostMapping("/reservas")
+		public String reservasAlumno(@RequestParam("clase") String clase, @RequestParam("dia") String dia, @ModelAttribute ("usuario") Usuario usuario, Model model) throws IOException {
+			System.out.println("Esto tiene nombre: " + usuario.getNombre());
+			model.addAttribute("alumnoLogueado", usuario);
 			
-			return "entrenador";
+			System.out.println("Esto tiene reserva clase: " + clase);
+			System.out.println("Esto tiene reserva dia: " + dia);
+			if(clase != null)//quiere decir que quiere cancelar el cupo
+			{
+				//primero necesito la key de la clase, primero obtengo las clases y luego comparo
+				HashMap<String, String> listaClases =  gymPowerService.obtenerClases();
+				String disciplina = gymPowerService.buscarClasePorNombre(listaClases, clase);
+				//obtener dias y horarios de esa disciplina
+				HashMap<Integer, Clase>  diasDisciplina = gymPowerService.obtenerDiasYHorario(disciplina);
+				int posicionDia = gymPowerService.encontrarDia(diasDisciplina , dia);
+				boolean cupo = gymPowerService.cancelarCupo(disciplina, posicionDia); 
+				if(cupo) 
+				{
+					int alumno = usuario.getNombre().equals("GIMENEZ ZAIRA") ? 9 : 10;
+					gymPowerService.cancelarReserva(alumno, clase, dia);
+					model.addAttribute("mensaje", "Se cancelo correctamente la clase " + clase + " el " + dia + " horas. ");
+				} else {
+					model.addAttribute("mensaje", "Lo sentimos, no pudimos cancelar la clase de " + clase + " el " + dia + " horas. ");
+				}
+			}
+			
+			return "reservas";
 		}
 
 }

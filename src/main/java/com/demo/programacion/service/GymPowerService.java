@@ -120,7 +120,32 @@ public class GymPowerService {
 			}
 		}
 		return null;
+	}
 	
+	public String buscarClasePorNombre(HashMap<String, String> listaClases, String nombre) {
+		for (Map.Entry<String, String> entry : listaClases.entrySet()) 
+		{
+			String key = entry.getKey();
+			String val = entry.getValue();
+			if(val.equals(nombre))
+			{
+				return key;
+			}
+		}
+		return null;
+	}
+	
+	public int encontrarDia(HashMap<Integer, Clase>  diasDisciplina , String dia){
+		for (Map.Entry<Integer, Clase> entry : diasDisciplina.entrySet()) 
+		{
+			int key = entry.getKey();
+			Clase val = entry.getValue();
+			if(val.getDia().equals(dia))
+			{
+				return key;
+			}
+		}
+		return -1;
 	}
 	
 	
@@ -198,6 +223,40 @@ public class GymPowerService {
         workbook.close();
         outputStream.close();
 	}
+	
+	public boolean cancelarReserva(int alumno, String clase, String dia) throws IOException{
+		FileInputStream inputStream = new FileInputStream(new File("src/main/resources/clases.xlsx"));
+        Workbook workbook = new XSSFWorkbook(inputStream);
+        Sheet sheet = workbook.getSheetAt(alumno); 
+         
+            for (Row row : sheet) 
+            {
+                Cell claseCell = row.getCell(0);
+                Cell diaCell = row.getCell(1);
+               
+                if (claseCell != null && diaCell != null) 
+                {
+                	String fileClase = claseCell.getStringCellValue();
+                    String fileDia = diaCell.getStringCellValue();
+
+                    if(fileClase.equals(clase) && fileDia.equals(dia))
+                    {
+                    	sheet.removeRow(sheet.getRow(row.getRowNum()));//eliminamos la fila completa si la encontramos
+                    	inputStream.close();
+                        FileOutputStream outputStream = new FileOutputStream(new File("src/main/resources/clases.xlsx"));
+                        workbook.write(outputStream);
+                        workbook.close();
+                        outputStream.close();
+                        return true;
+                    }  
+                }
+             }
+            inputStream.close();
+            workbook.close();
+            return false;
+	}
+	
+	
 	
 	
 	public boolean cancelarCupo(String disciplina, int diaSeleccionado) throws IOException{
