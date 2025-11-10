@@ -45,5 +45,23 @@ p{
 	color: #39FF14;
 }
 
+#contacto{
+	width: 900px;
+	height: 450px;
+	padding-bottom: 15px;
+	padding-top: 15px;
+}
 
+#nombrecontacto{
+	font-style: italic;
+	line-height: normal;
+	margin-bottom: 1rem;
+	color: #39FF14;
+}
+
+.container-contacto{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
 
