@@ -107,7 +107,9 @@ public class GymPowerController {
 		
 		
 		@GetMapping("/alumno")
-		public String alumno() {
+		public String alumno(@ModelAttribute ("usuario") Usuario usuario, Model model) {
+			model.addAttribute("alumnoLogueado", usuario);
+			System.out.println("Este es el alumno logueado en get" + usuario.getNombre());
 			return "alumno";
 		}
 		
@@ -119,6 +121,8 @@ public class GymPowerController {
 			System.out.println("Clase seleccionada" + clase.getDisciplina());
 			model.addAttribute("alumnoLogueado", usuario);
 			int alumno = usuario.getNombre().equals("GIMENEZ ZAIRA") ? 9 : 10;
+			System.out.println("Este es el alumno logueado" + usuario.getNombre());
+			System.out.println("Esto tiene int alumno " + alumno);
 			if(clase.getDisciplina() != null) 
 			{
 				HashMap<Integer, Clase> lista = gymPowerService.obtenerDiasYHorario(clase.getDisciplina());

@@ -50,8 +50,8 @@
 						<tbody>
 							<!-- Bucle para iterar sobre la lista de objetos -->
 							<tr th:each="objeto : ${listaAlumno1}">
-								<td th:text="${objeto.value.getDia()}"></td>
-								<td th:text="${objeto.value.getReservas()}"></td>
+								<td th:text="${objeto.getDia()}"></td>
+								<td th:text="${objeto.getReservas()}"></td>
 							</tr>
 						</tbody>
 					</table>

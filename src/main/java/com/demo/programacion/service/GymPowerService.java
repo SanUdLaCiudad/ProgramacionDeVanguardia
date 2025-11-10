@@ -182,33 +182,21 @@ public class GymPowerService {
 	}
 	
 	
-	public boolean guardarReserva(int alumno, String clase, String dia) throws IOException{
+	public void guardarReserva(int alumno, String clase, String dia) throws IOException{
 		FileInputStream inputStream = new FileInputStream(new File("src/main/resources/clases.xlsx"));
-		
         Workbook workbook = new XSSFWorkbook(inputStream);
         Sheet sheet = workbook.getSheetAt(alumno); 
-      
-        for (Row row : sheet) 
-        {
-            Cell claseCell = row.getCell(0);
-            Cell diaCell = row.getCell(1);
-           
-            if (claseCell != null && diaCell != null) 
-            {
-            	claseCell.setCellValue(clase);
-            	diaCell.setCellValue(dia);
-            	inputStream.close();
-            	FileOutputStream outputStream = new FileOutputStream(new File("src/main/resources/clases.xlsx"));
-            	workbook.write(outputStream);
-            	workbook.close();
-            	outputStream.close();
-            	return true;
-            }
-        }
-        
+        int ultimaFilaConDatos = sheet.getLastRowNum();//con este obtenemos la ultima fila con datos
+        Row row = sheet.createRow(ultimaFilaConDatos + 1);
+        Cell cell = row.createCell(0);
+        cell.setCellValue(clase);
+        Cell cell2 = row.createCell(1);
+        cell2.setCellValue(dia);
         inputStream.close();
+        FileOutputStream outputStream = new FileOutputStream(new File("src/main/resources/clases.xlsx"));
+        workbook.write(outputStream);
         workbook.close();
-        return false;
+        outputStream.close();
 	}
 	
 	
