@@ -7,14 +7,17 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.demo.programacion.model.Clase;
+import com.demo.programacion.model.Reserva;
 import com.demo.programacion.model.Usuario;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -149,5 +152,95 @@ public class GymPowerService {
         	return false;
         }
 	}
+	
+	
+	public List<Reserva> obtenerReservasAlumno(int alumno) throws IOException{
+		FileInputStream inputStream = new FileInputStream(new File("src/main/resources/clases.xlsx"));
+        Workbook workbook = new XSSFWorkbook(inputStream);
+        Sheet sheet = workbook.getSheetAt(alumno); 
+        
+        List<Reserva> lista = new ArrayList<Reserva>();
+     
+        for (Row row : sheet) 
+        {
+            Cell claseCell = row.getCell(0);
+            Cell diaCell = row.getCell(1);
+           
+            if (claseCell != null && diaCell != null) 
+            {
+            	String fileClase = claseCell.getStringCellValue();
+                String fileDia = diaCell.getStringCellValue();
+
+                Reserva reserva = new Reserva(fileClase, fileDia);
+                System.out.println("Esto tiene reserva: " + fileClase + fileDia);
+                lista.add(reserva);
+            }
+         }
+        inputStream.close();
+        workbook.close();
+        return lista;  
+	}
+	
+	
+	public boolean guardarReserva(int alumno, String clase, String dia) throws IOException{
+		FileInputStream inputStream = new FileInputStream(new File("src/main/resources/clases.xlsx"));
+		
+        Workbook workbook = new XSSFWorkbook(inputStream);
+        Sheet sheet = workbook.getSheetAt(alumno); 
+      
+        for (Row row : sheet) 
+        {
+            Cell claseCell = row.getCell(0);
+            Cell diaCell = row.getCell(1);
+           
+            if (claseCell != null && diaCell != null) 
+            {
+            	claseCell.setCellValue(clase);
+            	diaCell.setCellValue(dia);
+            	inputStream.close();
+            	FileOutputStream outputStream = new FileOutputStream(new File("src/main/resources/clases.xlsx"));
+            	workbook.write(outputStream);
+            	workbook.close();
+            	outputStream.close();
+            	return true;
+            }
+        }
+        
+        inputStream.close();
+        workbook.close();
+        return false;
+	}
+	
+	
+	public boolean cancelarCupo(String disciplina, int diaSeleccionado) throws IOException{
+		FileInputStream inputStream = new FileInputStream(new File("src/main/resources/clases.xlsx"));
+		
+        Workbook workbook = new XSSFWorkbook(inputStream);
+        int hojaDisciplina = Integer.parseInt(disciplina);
+        Sheet sheet = workbook.getSheetAt(hojaDisciplina); 
+      
+      
+        Row row = sheet.getRow(diaSeleccionado);       
+        Cell reservasCell = row.getCell(2);
+        int fileReserva = (int)reservasCell.getNumericCellValue();  
+        
+        //se pueden anotar hasta 5 por clase
+        if(fileReserva > -1 && fileReserva < 6)
+        {
+        	reservasCell.setCellValue(fileReserva - 1);   
+        	inputStream.close();
+        	FileOutputStream outputStream = new FileOutputStream(new File("src/main/resources/clases.xlsx"));
+        	workbook.write(outputStream);
+        	workbook.close();
+        	outputStream.close();
+        	return true;
+        } else {
+        	inputStream.close();
+        	workbook.close();
+        	return false;
+        }
+	}
+	
+	
 	
 }

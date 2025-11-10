@@ -2,6 +2,7 @@ package com.demo.programacion.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 
 import org.apache.poi.EncryptedDocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.demo.programacion.service.*;
 import com.demo.programacion.model.Clase;
+import com.demo.programacion.model.Reserva;
 import com.demo.programacion.model.Usuario;
 
 @Controller
@@ -113,8 +115,10 @@ public class GymPowerController {
 		HashMap<Integer, Clase> listaReservada = new HashMap<>();
 		
 		@PostMapping("/alumno")
-		public String seleccionarClase(@ModelAttribute ("clase") Clase clase, Model model) throws EncryptedDocumentException, IOException {			
+		public String seleccionarClase(@ModelAttribute ("clase") Clase clase, @ModelAttribute ("usuario") Usuario usuario, Model model) throws EncryptedDocumentException, IOException {			
 			System.out.println("Clase seleccionada" + clase.getDisciplina());
+			model.addAttribute("alumnoLogueado", usuario);
+			int alumno = usuario.getNombre().equals("GIMENEZ ZAIRA") ? 9 : 10;
 			if(clase.getDisciplina() != null) 
 			{
 				HashMap<Integer, Clase> lista = gymPowerService.obtenerDiasYHorario(clase.getDisciplina());
@@ -137,6 +141,7 @@ public class GymPowerController {
 				boolean cupo = gymPowerService.guardarCupo(claseReservada.getDisciplina(), diaSeleccionado);
 				if(cupo) 
 				{
+					gymPowerService.guardarReserva(alumno, claseAnotada, claseReservada.getDia());
 					model.addAttribute("mensaje", "Te registrate correctamente a la clase de " + claseAnotada + " el " + claseReservada.getDia() + " horas. ");
 				} else {
 					model.addAttribute("mensaje", "Lo sentimos, no hay mas cupo para la clase de " + claseAnotada + " el " + claseReservada.getDia() + " horas. ");
@@ -150,6 +155,29 @@ public class GymPowerController {
 		@GetMapping("/contacto")
 		public String contacto() {
 			return "contacto";
+		}
+		
+		
+		@GetMapping("/reservas")
+		public String reservasAlumno(@ModelAttribute ("usuario") Usuario usuario, Model model) throws IOException {
+			System.out.println("Esto tiene nombre: " + usuario.getNombre());
+			model.addAttribute("alumnoLogueado", usuario);
+			if(usuario.getNombre().equals("GIMENEZ ZAIRA"))
+			{
+				List<Reserva> listaAlumno1 = gymPowerService.obtenerReservasAlumno(9);
+				model.addAttribute("nombre", usuario.getNombre());
+				model.addAttribute("alumno", 1);
+				model.addAttribute("listaAlumno1", listaAlumno1);
+			}
+			if(usuario.getNombre().equals("SANCHEZ ROBERTO"))
+			{
+				List<Reserva> listaAlumno2 = gymPowerService.obtenerReservasAlumno(10);
+				model.addAttribute("nombre", usuario.getNombre());
+				model.addAttribute("alumno", 2);
+				model.addAttribute("listaAlumno2", listaAlumno2);
+			}
+			
+			return "entrenador";
 		}
 
 }

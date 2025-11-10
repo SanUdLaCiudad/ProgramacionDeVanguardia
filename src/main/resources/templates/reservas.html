@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<html xlmns:th="http://www.thymeleaf.org">
+	<link rel="icon" th:href="@{images/logomoveon.png}" type="image/png">
+	<title>RESERVAS ALUMNO</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+		crossorigin="anonymous"></script>
+	<link rel="stylesheet" th:href="@{css/index.css}">
+</head>
+
+<body class="bg-dark" data-bs-theme="dark">
+
+	<main>
+		<nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+			<div class="container-fluid">
+				<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+					<div class="navbar-nav">
+						<a class="nav-link active" aria-current="page" href="/">Home</a>
+						<a class="nav-link" href="/login">Login</a>
+						<a class="nav-link" href="/contacto">Contacto</a>
+						<a th:if="${alumnoLogueado != null}" class=" nav-link" href="/alumno">Clases</a>
+					</div>
+				</div>
+			</div>
+		</nav>
+
+		<div class="container-fluid bg-dark" data-bs-theme="dark">
+			<div class="container">
+
+				<div class="row">
+					<h1 th:text="|Hola ${nombre} estas son tus clases reservadas: |"></h1>
+				</div>
+
+
+				<div class="row" th:if="${alumno == 1}">
+					<table class="table table-dark">
+						<thead>
+							<tr class="table-active">
+								<th>Clase</th>
+								<th>Dia y Horario</th>
+								<th><button type="submit" class="btn btn-primary">Cancelar</button></th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- Bucle para iterar sobre la lista de objetos -->
+							<tr th:each="objeto : ${listaAlumno1}">
+								<td th:text="${objeto.value.getDia()}"></td>
+								<td th:text="${objeto.value.getReservas()}"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<div class="row" th:if="${alumno == 2}">
+					<table class="table table-dark">
+						<thead>
+							<tr class="table-active">
+								<th>Clase</th>
+								<th>Dia y Horario</th>
+								<th><button type="submit" class="btn btn-primary">Cancelar</button></th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- Bucle para iterar sobre la lista de objetos -->
+							<tr th:each="objeto : ${listaAlumno2}">
+								<td th:text="${objeto.value.getDia()}"></td>
+								<td th:text="${objeto.value.getReservas()}"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+	</main>
+
+</body>
+
+</html>
