@@ -73,12 +73,30 @@ public class GymPowerController {
 			if(usuario.getNombre().equals("SUAREZ JULIETA"))
 			{
 				HashMap<Integer, Clase> listaAerobox = gymPowerService.obtenerDiasYHorario("1");
-				//HashMap<Integer, Clase> listaAerolocal = gymPowerService.obtenerDiasYHorario("2");
-				//HashMap<Integer, Clase> listaMusculacion = gymPowerService.obtenerDiasYHorario("5");
-				//HashMap<Integer, Clase> listaZumba = gymPowerService.obtenerDiasYHorario("8");
+				HashMap<Integer, Clase> listaAerolocal = gymPowerService.obtenerDiasYHorario("2");
+				HashMap<Integer, Clase> listaMusculacion = gymPowerService.obtenerDiasYHorario("5");
+				HashMap<Integer, Clase> listaZumba = gymPowerService.obtenerDiasYHorario("8");
 				model.addAttribute("nombre", usuario.getNombre());
+				model.addAttribute("entrenador", 1);
 				model.addAttribute("listaAerobox", listaAerobox);
+				model.addAttribute("listaAerolocal", listaAerolocal);
+				model.addAttribute("listaMusculacion", listaMusculacion);
+				model.addAttribute("listaZumba", listaZumba);
 			}
+			if(usuario.getNombre().equals("PEREZ JUAN"))
+			{
+				HashMap<Integer, Clase> listaFuncional = gymPowerService.obtenerDiasYHorario("3");
+				HashMap<Integer, Clase> listaLocalizada = gymPowerService.obtenerDiasYHorario("4");
+				HashMap<Integer, Clase> listaPesas = gymPowerService.obtenerDiasYHorario("6");
+				HashMap<Integer, Clase> listaSpinning = gymPowerService.obtenerDiasYHorario("7");
+				model.addAttribute("nombre", usuario.getNombre());
+				model.addAttribute("entrenador", 2);
+				model.addAttribute("listaFuncional", listaFuncional);
+				model.addAttribute("listaLocalizada", listaLocalizada);
+				model.addAttribute("listaPesas", listaPesas);
+				model.addAttribute("listaSpinning", listaSpinning);
+			}
+			
 			return "entrenador";
 		}
 		
@@ -100,7 +118,8 @@ public class GymPowerController {
 			if(clase.getDisciplina() != null) 
 			{
 				HashMap<Integer, Clase> lista = gymPowerService.obtenerDiasYHorario(clase.getDisciplina());
-				model.addAttribute("numero", clase.getDisciplina());
+				int numero = Integer.parseInt(clase.getDisciplina());
+				model.addAttribute("numero", numero);
 				model.addAttribute("ocultarBoton", "display: none;");//para ocultar el boton de enviar
 				model.addAttribute("lista", lista);
 				System.out.println("lista: " +lista.size());

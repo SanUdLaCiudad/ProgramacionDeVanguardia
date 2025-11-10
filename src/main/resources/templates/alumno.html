@@ -57,14 +57,14 @@
 								<select th:if="${lista != null && mensaje == null}" name="disciplina" type="text"
 									class="form-select">
 
-									<option value="1" th:disabled="${numero != 1}">Aerobox</option>
-									<option value="2" th:disabled="${numero != 2}">Aerolocal</option>
-									<option value="3" th:disabled="${numero != 3}">Funcional</option>
-									<option value="4" th:disabled="${numero != 4}">Localizada</option>
-									<option value="5" th:disabled="${numero != 5}">Musculacion</option>
-									<option value="6" th:disabled="${numero != 6}">Pesas</option>
-									<option value="7" th:disabled="${numero != 7}">Spinning</option>
-									<option value="8" th:disabled="${numero != 8}">Zumba</option>
+									<option value="1" th:disabled="${numero != 1}" th:selected="${numero == 1}">Aerobox</option>
+									<option value="2" th:disabled="${numero != 2}" th:selected="${numero == 2}">Aerolocal</option>
+									<option value="3" th:disabled="${numero != 3}" th:selected="${numero == 3}">Funcional</option>
+									<option value="4" th:disabled="${numero != 4}" th:selected="${numero == 4}">Localizada</option>
+									<option value="5" th:disabled="${numero != 5}" th:selected="${numero == 5}">Musculacion</option>
+									<option value="6" th:disabled="${numero != 6}" th:selected="${numero == 6}">Pesas</option>
+									<option value="7" th:disabled="${numero != 7}" th:selected="${numero == 7}">Spinning</option>
+									<option value="8" th:disabled="${numero != 8}" th:selected="${numero == 8}">Zumba</option>
 								</select>
 
 							</div>

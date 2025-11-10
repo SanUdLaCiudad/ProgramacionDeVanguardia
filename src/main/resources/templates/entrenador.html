@@ -35,9 +35,9 @@
 				<div class="row">
 					<h1 th:text="|Hola ${nombre} estas son tus clases reservadas: |"></h1>
 				</div>
-				
-				
-				<div class="row">
+
+				<!--ENTRENADOR 1-->
+				<div class="row" th:if="${entrenador == 1}">
 					<p> Para aerobox: </p>
 					<table class="table table-dark">
 						<thead>
@@ -55,7 +55,136 @@
 						</tbody>
 					</table>
 				</div>
-				
+				<div class="row" th:if="${entrenador == 1}">
+					<p> Para aerolocal: </p>
+					<table class="table table-dark">
+						<thead>
+							<tr class="table-active">
+								<th>Dia y Horario</th>
+								<th>Cantidad de Alumnos</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- Bucle para iterar sobre la lista de objetos -->
+							<tr th:each="objeto : ${listaAerolocal}">
+								<td th:text="${objeto.value.getDia()}"></td>
+								<td th:text="${objeto.value.getReservas()}"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="row" th:if="${entrenador == 1}">
+					<p> Para musculacion: </p>
+					<table class="table table-dark">
+						<thead>
+							<tr class="table-active">
+								<th>Dia y Horario</th>
+								<th>Cantidad de Alumnos</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- Bucle para iterar sobre la lista de objetos -->
+							<tr th:each="objeto : ${listaMusculacion}">
+								<td th:text="${objeto.value.getDia()}"></td>
+								<td th:text="${objeto.value.getReservas()}"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="row" th:if="${entrenador == 1}">
+					<p> Para zumba: </p>
+					<table class="table table-dark">
+						<thead>
+							<tr class="table-active">
+								<th>Dia y Horario</th>
+								<th>Cantidad de Alumnos</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- Bucle para iterar sobre la lista de objetos -->
+							<tr th:each="objeto : ${listaZumba}">
+								<td th:text="${objeto.value.getDia()}"></td>
+								<td th:text="${objeto.value.getReservas()}"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+
+				<!--ENTRENADOR 2-->
+				<div class="row" th:if="${entrenador == 2}">
+					<p> Para funcional: </p>
+					<table class="table table-dark">
+						<thead>
+							<tr class="table-active">
+								<th>Dia y Horario</th>
+								<th>Cantidad de Alumnos</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- Bucle para iterar sobre la lista de objetos -->
+							<tr th:each="objeto : ${listaFuncional}">
+								<td th:text="${objeto.value.getDia()}"></td>
+								<td th:text="${objeto.value.getReservas()}"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="row" th:if="${entrenador == 2}">
+					<p> Para localizada: </p>
+					<table class="table table-dark">
+						<thead>
+							<tr class="table-active">
+								<th>Dia y Horario</th>
+								<th>Cantidad de Alumnos</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- Bucle para iterar sobre la lista de objetos -->
+							<tr th:each="objeto : ${listaLocalizada}">
+								<td th:text="${objeto.value.getDia()}"></td>
+								<td th:text="${objeto.value.getReservas()}"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="row" th:if="${entrenador == 2}">
+					<p> Para pesas: </p>
+					<table class="table table-dark">
+						<thead>
+							<tr class="table-active">
+								<th>Dia y Horario</th>
+								<th>Cantidad de Alumnos</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- Bucle para iterar sobre la lista de objetos -->
+							<tr th:each="objeto : ${listaPesas}">
+								<td th:text="${objeto.value.getDia()}"></td>
+								<td th:text="${objeto.value.getReservas()}"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="row" th:if="${entrenador == 2}">
+					<p> Para spinning: </p>
+					<table class="table table-dark">
+						<thead>
+							<tr class="table-active">
+								<th>Dia y Horario</th>
+								<th>Cantidad de Alumnos</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- Bucle para iterar sobre la lista de objetos -->
+							<tr th:each="objeto : ${listaSpinning}">
+								<td th:text="${objeto.value.getDia()}"></td>
+								<td th:text="${objeto.value.getReservas()}"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
 			</div>
 		</div>
 
